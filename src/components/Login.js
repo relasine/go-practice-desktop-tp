@@ -75,6 +75,7 @@ class Login extends Component {
         <input
           className="login-input"
           name="email"
+          type="email"
           onChange={e => this.handleChange(e)}
           placeholder="email address"
         />
@@ -91,7 +92,7 @@ class Login extends Component {
           <span onClick={() => this.props.navigate("signup")}>Sign up!</span>
         </p>
         <p onClick={() => this.props.navigate("forgot password")}>
-          Forgout your password?
+          Forgot your password?
         </p>
       </form>
     );

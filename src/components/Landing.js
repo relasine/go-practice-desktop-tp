@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Login from "./Login";
 import Signup from "./Signup";
+import ForgotPassword from "./ForgotPassword";
 
 import "../css/Landing.css";
 
@@ -26,6 +27,9 @@ class Landing extends Component {
         )}
         {this.state.activePage === "signup" && (
           <Signup navigate={this.navigate} />
+        )}
+        {this.state.activePage === "forgot password" && (
+          <ForgotPassword navigate={this.navigate} />
         )}
         <div />
       </main>
