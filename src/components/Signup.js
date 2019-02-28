@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "../css/Signup.css";
 
+import { callSignup } from "../utilities/fetchcalls";
+
 class Signup extends Component {
   constructor() {
     super();
@@ -54,12 +56,61 @@ class Signup extends Component {
     this.setState({
       status: "fetching"
     });
+
+    this.sendSignupRequest();
+  };
+
+  sendSignupRequest = async () => {
+    const payload = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    };
+    try {
+      const response = await callSignup(payload);
+
+      if (response === "Succesfully added user") {
+        this.setState({
+          status: "success"
+        });
+      } else if (response === "User already exists") {
+        this.setState({
+          status: "duplicate"
+        });
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        status: "error"
+      });
+    }
   };
 
   render() {
+    const { status } = this.state;
     return (
       <form className="signup" onSubmit={e => this.handleSubmit(e)}>
-        <p className="signup-label">Register an account</p>
+        {status === "entry" && (
+          <p className="signup-label">Register an account</p>
+        )}
+        {status === "error" && (
+          <p className="signup-label">Server error - try again later</p>
+        )}
+        {status === "success" && (
+          <p className="signup-label">Success! New account created.</p>
+        )}
+        {status === "duplicate" && (
+          <p className="signup-label">
+            Email address already assigned to an account.
+          </p>
+        )}
+        {status === "fetching" && (
+          <p className="signup-label">Signing you up...</p>
+        )}
+        {status === "incomplete" && (
+          <p className="signup-label">Please fill all fields to sign up.</p>
+        )}
         <input
           className="signup-input"
           name="name"
