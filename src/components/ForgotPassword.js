@@ -50,9 +50,13 @@ class ForgotPassword extends Component {
   };
 
   render() {
+    const { status } = this.state;
     return (
       <form className="forgot-password" onSubmit={e => this.handleSubmit(e)}>
-        <p className="forgot-password-label">Forgot your password?</p>
+        {status === "entry" && (
+          <p className="forgot-password-label">Forgot your password?</p>
+        )}
+        {status === "incomplete" && <p>Please enter your email address</p>}
         <input
           className="forgot-password-input"
           name="email"
