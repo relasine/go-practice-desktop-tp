@@ -35,17 +35,18 @@ export const callSignup = async payload => {
 };
 
 export const callResetPassword = async payload => {
+  console.log(payload);
   const requestObject = {
-    method: "POST",
+    method: "PATCH",
     mode: "cors",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ email: payload }),
     headers: {
       "Content-Type": "application/json"
     }
   };
 
   const response = await fetch(
-    "http://localhost:3000/teachers/resetpassword",
+    "http://localhost:3000/api/v1/teachers/resetPassword",
     requestObject
   );
 
