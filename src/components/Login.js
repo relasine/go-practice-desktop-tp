@@ -69,9 +69,22 @@ class Login extends Component {
   };
 
   render() {
+    const { status } = this.state;
     return (
       <form className="login" onSubmit={e => this.handleSubmit(e)}>
-        <p className="login-label">Log in to Go Practice Teacher Portal</p>
+        {status === "entry" && (
+          <p className="login-label">Log in to Go Practice Teacher Portal</p>
+        )}
+        {status === "fetching" && <p className="login-label">Logging in...</p>}
+        {status === "no match" && (
+          <p className="login-label">Email/password do not match our records</p>
+        )}
+        {status === "error" && (
+          <p className="login-label">Server error. Please try again later.</p>
+        )}
+        {status === "incomplete" && (
+          <p className="login-label">Missing email or password</p>
+        )}
         <input
           className="login-input"
           name="email"
